@@ -42,3 +42,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Environment
+.env.local
+.env*.local
+
+# Convex
+.convex-sync-state
