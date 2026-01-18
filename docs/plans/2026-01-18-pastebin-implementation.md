@@ -6,7 +6,7 @@
 
 **Architecture:** Next.js 16 frontend with Convex backend. Single `pastes` table stores content and metadata. CodeMirror 6 for editing and viewing. Minimal single-line UI with full-height editor.
 
-**Tech Stack:** Next.js 16, React 19, Convex, CodeMirror 6, Tailwind CSS, TypeScript, nanoid
+**Tech Stack:** Next.js 16, React 19, Convex, CodeMirror 6, Tailwind CSS, TypeScript, nanoid, Bun
 
 ---
 
@@ -26,7 +26,7 @@
 
 Run:
 ```bash
-npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false --import-alias="@/*" --turbopack
+bunx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false --import-alias="@/*" --turbopack
 ```
 
 Expected: Project scaffolded with Next.js 16, Tailwind, TypeScript
@@ -35,8 +35,8 @@ Expected: Project scaffolded with Next.js 16, Tailwind, TypeScript
 
 Run:
 ```bash
-npm install convex
-npx convex dev --once
+bun add convex
+bunx convex dev --once
 ```
 
 Expected: `convex/` directory created with `_generated/` folder
@@ -45,7 +45,7 @@ Expected: `convex/` directory created with `_generated/` folder
 
 Run:
 ```bash
-npm install @uiw/react-codemirror @codemirror/lang-javascript @codemirror/lang-python @codemirror/lang-html @codemirror/lang-css @codemirror/lang-json @codemirror/lang-markdown @codemirror/lang-sql @codemirror/lang-xml @codemirror/lang-yaml nanoid
+bun add @uiw/react-codemirror @codemirror/lang-javascript @codemirror/lang-python @codemirror/lang-html @codemirror/lang-css @codemirror/lang-json @codemirror/lang-markdown @codemirror/lang-sql @codemirror/lang-xml @codemirror/lang-yaml nanoid
 ```
 
 Expected: Dependencies installed
@@ -54,7 +54,7 @@ Expected: Dependencies installed
 
 Run:
 ```bash
-npm run dev
+bun run dev
 ```
 
 Expected: Server starts on http://localhost:3000
@@ -185,7 +185,7 @@ export const cleanupExpired = internalMutation({
 
 Run:
 ```bash
-npx convex dev --once
+bunx convex dev --once
 ```
 
 Expected: Schema deployed successfully
@@ -253,7 +253,7 @@ export default function RootLayout({
 
 Run:
 ```bash
-npm run dev
+bun run dev
 ```
 
 Expected: App loads at http://localhost:3000 without errors
@@ -414,13 +414,13 @@ export function PasteEditor({
 
 Run:
 ```bash
-npm install @uiw/codemirror-theme-vscode
+bun add @uiw/codemirror-theme-vscode
 ```
 
 **Step 3: Commit**
 
 ```bash
-git add components/PasteEditor.tsx package.json package-lock.json
+git add components/PasteEditor.tsx package.json bun.lockb
 git commit -m "feat: add CodeMirror editor component"
 ```
 
@@ -685,7 +685,7 @@ export default function CreatePage() {
 
 Run:
 ```bash
-npm run dev
+bun run dev
 ```
 
 Expected: Create page loads with editor at http://localhost:3000

@@ -6,6 +6,7 @@ A team/internal pastebin for sharing code snippets, hosted privately with no aut
 
 ## Tech Stack
 
+- **Runtime**: Bun
 - **Frontend**: Next.js 16 LTS (App Router, Turbopack)
 - **Backend**: Convex (reactive database, serverless functions)
 - **Editor**: CodeMirror 6 (both create and view)
