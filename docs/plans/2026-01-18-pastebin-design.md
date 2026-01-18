@@ -6,7 +6,7 @@ A team/internal pastebin for sharing code snippets, hosted privately with no aut
 
 ## Tech Stack
 
-- **Frontend**: Next.js 14 (App Router)
+- **Frontend**: Next.js 16 LTS (App Router, Turbopack)
 - **Backend**: Convex (reactive database, serverless functions)
 - **Editor**: CodeMirror 6 (both create and view)
 - **Styling**: Tailwind CSS
@@ -127,8 +127,8 @@ pastebin/
 ```json
 {
   "dependencies": {
-    "next": "^14",
-    "react": "^18",
+    "next": "^16",
+    "react": "^19",
     "convex": "^1",
     "@uiw/react-codemirror": "^4",
     "@codemirror/lang-javascript": "^6",
