@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: convex-config
+  namespace: pastebin
+  labels:
+    app.kubernetes.io/name: convex
+    app.kubernetes.io/part-of: pastebin
+data:
+  # External URLs - update these to match your domain/ingress
+  CONVEX_CLOUD_ORIGIN: "https://api.pastebin.example.com"
+  CONVEX_SITE_ORIGIN: "https://site.pastebin.example.com"
+  # Internal service URL for dashboard
+  CONVEX_BACKEND_URL: "http://convex-backend:3210"

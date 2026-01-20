@@ -1,0 +1,60 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+.next
+out
+build
+dist
+
+# Testing
+coverage
+test-results
+tests
+*.spec.ts
+*.test.ts
+playwright.config.ts
+playwright-report
+
+# Development
+.git
+.gitignore
+.env*.local
+.env.development
+.env.test
+
+# IDE and editors
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Documentation
+*.md
+!README.md
+docs
+LICENSE
+
+# Convex (managed separately)
+# convex/_generated
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Kubernetes manifests (not needed in app image)
+k8s
+
+# Misc
+*.log
+*.tmp
+*.temp

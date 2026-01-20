@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: convex-backend
+  namespace: pastebin
+  labels:
+    app.kubernetes.io/name: convex-backend
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: pastebin
+spec:
+  # Single replica recommended for SQLite
+  replicas: 1
+  strategy:
+    type: Recreate  # Required for SQLite (no concurrent access)
+  selector:
+    matchLabels:
+      app: convex-backend
+  template:
+    metadata:
+      labels:
+        app: convex-backend
+        app.kubernetes.io/name: convex-backend
+        app.kubernetes.io/component: backend
+        app.kubernetes.io/part-of: pastebin
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: backend
+          image: ghcr.io/get-convex/convex-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - name: api
+              containerPort: 3210
+              protocol: TCP
+            - name: http-actions
+              containerPort: 3211
+              protocol: TCP
+          env:
+            - name: CONVEX_CLOUD_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  name: convex-config
+                  key: CONVEX_CLOUD_ORIGIN
+            - name: CONVEX_SITE_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  name: convex-config
+                  key: CONVEX_SITE_ORIGIN
+            - name: CONVEX_SELF_HOSTED_ADMIN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: convex-secrets
+                  key: admin-key
+            # SQLite is the default - no DATABASE_URL needed
+          volumeMounts:
+            - name: convex-data
+              mountPath: /convex/data
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+          livenessProbe:
+            httpGet:
+              path: /version
+              port: api
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /version
+              port: api
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+      volumes:
+        - name: convex-data
+          persistentVolumeClaim:
+            claimName: convex-data-pvc

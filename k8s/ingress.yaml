@@ -1,0 +1,68 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pastebin-ingress
+  namespace: pastebin
+  labels:
+    app.kubernetes.io/name: pastebin-ingress
+    app.kubernetes.io/part-of: pastebin
+  annotations:
+    # For nginx ingress controller
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    # For cert-manager (optional - uncomment if using)
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  # Uncomment for TLS (requires cert-manager or manual secret)
+  # tls:
+  #   - hosts:
+  #       - pastebin.example.com
+  #       - api.pastebin.example.com
+  #       - dashboard.pastebin.example.com
+  #     secretName: pastebin-tls
+  rules:
+    # Main application
+    - host: pastebin.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pastebin-app
+                port:
+                  number: 3000
+    # Convex API backend
+    - host: api.pastebin.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: convex-backend
+                port:
+                  number: 3210
+    # Convex HTTP Actions
+    - host: site.pastebin.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: convex-backend
+                port:
+                  number: 3211
+    # Convex Dashboard (optional - remove if not needed)
+    - host: dashboard.pastebin.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: convex-dashboard
+                port:
+                  number: 6791

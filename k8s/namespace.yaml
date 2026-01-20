@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pastebin
+  labels:
+    app.kubernetes.io/name: pastebin
+    app.kubernetes.io/part-of: pastebin
