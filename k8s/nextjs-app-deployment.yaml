@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pastebin-app
+  namespace: pastebin
+  labels:
+    app.kubernetes.io/name: pastebin-app
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: pastebin
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pastebin-app
+  template:
+    metadata:
+      labels:
+        app: pastebin-app
+        app.kubernetes.io/name: pastebin-app
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/part-of: pastebin
+    spec:
+      containers:
+        - name: app
+          # Update this to your container registry and image
+          image: your-registry/pastebin-app:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          env:
+            # Convex self-hosted configuration
+            - name: CONVEX_SELF_HOSTED_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: convex-config
+                  key: CONVEX_CLOUD_ORIGIN
+            - name: CONVEX_SELF_HOSTED_ADMIN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: convex-secrets
+                  key: admin-key
+            # Next.js configuration
+            - name: NODE_ENV
+              value: "production"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3

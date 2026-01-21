@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pastebin-app
+  namespace: pastebin
+  labels:
+    app.kubernetes.io/name: pastebin-app
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: pastebin
+spec:
+  type: ClusterIP
+  selector:
+    app: pastebin-app
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+      protocol: TCP
