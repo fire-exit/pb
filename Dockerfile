@@ -19,6 +19,7 @@ ENV NODE_ENV=production
 RUN bun run build
 
 # Production image
+# Required runtime env var: CONVEX_URL (e.g., https://your-deployment.convex.cloud)
 FROM base AS runner
 WORKDIR /app
 

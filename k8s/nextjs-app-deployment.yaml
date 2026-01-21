@@ -31,6 +31,11 @@ spec:
               protocol: TCP
           env:
             # Convex self-hosted configuration
+            - name: CONVEX_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: convex-config
+                  key: CONVEX_CLOUD_ORIGIN
             - name: CONVEX_SELF_HOSTED_URL
               valueFrom:
                 configMapKeyRef:
