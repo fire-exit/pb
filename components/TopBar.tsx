@@ -123,7 +123,7 @@ export function TopBar({
           disabled={isCreate}
           className="px-3 py-1 text-sm rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          ↓
+          Download
         </button>
         <button
           onClick={onFork}
